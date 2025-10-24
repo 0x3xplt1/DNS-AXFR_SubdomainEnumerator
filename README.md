@@ -170,12 +170,6 @@ Exit behavior:
 
 ---
 
-## License
-
-Choose and include a LICENSE file (MIT, Apache‑2.0, etc.). If unsure, MIT is a simple, permissive choice.
-
----
-
 ## Disclaimer
 
 For educational and authorized testing only. Use responsibly and legally. The authors and contributors are not liable for misuse or damages.
