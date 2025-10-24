@@ -83,12 +83,18 @@ Optional:
   - .\.venv\Scripts\activate   (Windows)
   - pip install dnspython
 
+- Make it executable:
+  - chmod +x dns_axfr_enum.py
+
 ---
 
 ## Usage
 
 Basic syntax:
-- python3 script.py -d <DOMAIN> -n <NS1,NS2,...>
+- python3 dns_axfr_enum.py -d <DOMAIN> -n <NS1,NS2,...>
+
+Or:
+- ./dns_axfr_enum.py -d <DOMAIN> -n <NS1,NS2,...>
 
 Arguments:
 - -d Domain (required)
@@ -120,11 +126,11 @@ Exit behavior:
 ## Examples
 
 - Single nameserver by hostname:
-  - python3 script.py -d inlanefreight.htb -n ns1.inlanefreight.htb
+  - python3 dns_axfr_enum.py -d inlanefreight.htb -n ns1.inlanefreight.htb
 - Multiple nameservers:
-  - python3 script.py -d example.com -n ns1.example.com,ns2.example.com
+  - python3 dns_axfr_enum.py -d example.com -n ns1.example.com,ns2.example.com
 - Nameservers by IP:
-  - python3 script.py -d example.com -n 192.0.2.53,198.51.100.12
+  - python3 dns_axfr_enum.py -d example.com -n 192.0.2.53,198.51.100.12 
 
 ---
 
