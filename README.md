@@ -157,14 +157,43 @@ Exit behavior:
 
 ---
 
-## FAQ
+### Hack The Box VPN connectivity issues and verification
 
-- Does this brute force subdomains?
-  - No. It relies on full zone transfers (AXFR). If AXFR is blocked, it won’t enumerate.
-- Can I pass non‑authoritative resolvers?
-  - You can, but AXFR must be allowed and served by the target nameserver for the zone; otherwise it will fail.
-- Is UDP used?
-  - AXFR uses TCP/53.
+If AXFR requests time out, or it refuses to connect to the target nameserver, in HTB labs, ensure your VPN is up and routing lab traffic.
+
+- Connect via CLI:
+  - sudo openvpn --config /path/to/your.ovpn
+  - If unstable, try a different .ovpn profile (switch VPN server or switch UDP/TCP)
+    - Sometimes if you change the VPN Server, it will work.
+- Connect via GUI:
+  - Use the “OpenVPN Connect” app and import/select your .ovpn profile
+    - On Kali Linux, to ensure the fastest connection, use the cli option.
+
+After connecting or switching, verify:
+
+- Interface and HTB IP assigned:
+  - Linux/macOS: ip addr | grep -E "tun|tap|wg|inet "
+  - Windows (PowerShell): Get-NetIPAddress | Where-Object {$_.InterfaceAlias -match 'TAP|TUN|WireGuard'}
+
+- Reach the target nameserver:
+  - Linux/macOS: ping -c 4 <NAMESERVER_IP>
+  - Windows: ping <NAMESERVER_IP>
+
+- Check TCP/53 to the nameserver:
+  - Linux/macOS (netcat): nc -vz <NAMESERVER_IP> 53
+  - Bash fallback: timeout 3 bash -c '</dev/tcp/<NAMESERVER_IP>/53' && echo "open" || echo "closed"
+  - Windows (PowerShell): Test-NetConnection <NAMESERVER_IP> -Port 53
+
+- Optional AXFR probe:
+  - dig AXFR <DOMAIN> @<NAMESERVER_IP>
+    - Example: dig AXFR inlanefreight.htb @10.129.184.83
+    - If successful, you should see a list of subdomains.
+
+If it still fails:
+- Confirm the VPN shows connected and review OpenVPN logs.
+- Cross‑check the same target using the Hack The Box web instance (in‑browser lab)
+
+If the setup is correct, you should see a list of subdomains, without changing the /etc/hosts file.
 
 ---
 
