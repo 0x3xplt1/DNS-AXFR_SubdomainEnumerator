@@ -205,6 +205,12 @@ If the setup is correct, you should see a list of subdomains, without changing t
 
 ---
 
+## License
+
+MIT License
+
+---
+
 ## Disclaimer
 
 For educational and authorized testing only. Use responsibly and legally. The authors and contributors are not liable for misuse or damages.
